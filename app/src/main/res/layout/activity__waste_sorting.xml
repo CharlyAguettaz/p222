@@ -22,7 +22,7 @@
             android:id="@+id/txt_waste_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Waste Types" />
+            android:text="@string/waste_types" />
 
         <RadioGroup
             android:id="@+id/rd_waste_choice"
@@ -33,37 +33,37 @@
                 android:id="@+id/rdbt_glass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Glass" />
+                android:text="@string/wt_glass" />
 
             <RadioButton
                 android:id="@+id/rdbt_paper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Paper" />
+                android:text="@string/wt_paper" />
 
             <RadioButton
                 android:id="@+id/rdbt_plastic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Plastic" />
+                android:text="@string/wt_plastic" />
 
             <RadioButton
                 android:id="@+id/rdbt_metal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Metal" />
+                android:text="@string/wt_metal" />
 
             <RadioButton
                 android:id="@+id/rdbt_organic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Organic" />
+                android:text="@string/wt_organic" />
 
             <RadioButton
                 android:id="@+id/rdbt_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Other" />
+                android:text="@string/wt_other" />
 
         </RadioGroup>
 
@@ -71,7 +71,7 @@
             android:id="@+id/bt_validate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Validate" />
+            android:text="@string/validate" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

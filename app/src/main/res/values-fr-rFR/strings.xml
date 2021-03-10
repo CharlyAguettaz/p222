@@ -5,4 +5,12 @@
     <string name="trier">Triage</string>
     <string name="ou_trier">Où trier</string>
     <string name="profil_points">Profil et Points</string>
+    <string name="waste_types">Type de Dechets</string>
+    <string name="wt_glass">Verre</string>
+    <string name="wt_paper">Papier / Carton</string>
+    <string name="wt_plastic">Plastique</string>
+    <string name="wt_metal">Métal</string>
+    <string name="wt_other">Autre</string>
+    <string name="validate">Valider</string>
+    <string name="wt_organic">Organique</string>
 </resources>

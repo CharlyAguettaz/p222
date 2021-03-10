@@ -4,4 +4,12 @@
     <string name="trier">Sorting</string>
     <string name="ou_trier">Where to sort</string>
     <string name="profil_points">Profil and Points</string>
+    <string name="waste_types">Waste Types</string>
+    <string name="wt_glass">Glass</string>
+    <string name="wt_paper">Paper / Cardboard</string>
+    <string name="wt_plastic">Plastic</string>
+    <string name="wt_metal">Metal</string>
+    <string name="wt_other">Other</string>
+    <string name="validate">Validate</string>
+    <string name="wt_organic">Organic</string>
 </resources>
