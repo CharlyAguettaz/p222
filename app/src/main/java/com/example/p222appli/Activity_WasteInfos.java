@@ -29,6 +29,7 @@ public class Activity_WasteInfos extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         m = menu;
+
         return true;
     }
     @Override

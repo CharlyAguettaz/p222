@@ -23,7 +23,7 @@ public class Activity_Welcome extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_profil, menu);
         m = menu;
         return true;
     }
@@ -31,10 +31,7 @@ public class Activity_Welcome extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch( item.getItemId() ){
-            case R.id.item1:
-                Intent myIntent = new Intent(this.getApplicationContext(), Activity_Welcome.class);
-                startActivityForResult(myIntent, 0);
-                return true;
+
             case R.id.item3:
                 Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
                 startActivityForResult(myIntent2, 1);
