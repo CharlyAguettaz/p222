@@ -2,7 +2,9 @@ package com.example.p222appli;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -63,5 +65,25 @@ public class Activity_WasteSorting extends AppCompatActivity {
                 Toast.makeText(Activity_WasteSorting.this, "will go to Activity_WasteInfos", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Intent myIntent = new Intent(this.getApplicationContext(), Activity_Welcome.class);
+                startActivityForResult(myIntent, 0);
+                return true;
+            case R.id.item3:
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                startActivityForResult(myIntent2, 1);
+                return true;
+            case R.id.item4:
+                Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
+                startActivityForResult(myIntent3, 2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
