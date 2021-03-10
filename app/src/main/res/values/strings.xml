@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">P222Appli</string>
-    <string name="d_chet_trier">déchet à trier</string>
-    <string name="o_trier">où trier</string>
-    <string name="profil_et_points">Profil et points</string>
-    <string name="trier">Trier</string>
+    <string name="trie_dechet">Waste Sorting</string>
+    <string name="trier">Sorting</string>
+    <string name="ou_trier">Where to sort</string>
+    <string name="profil_points">Profil and Points</string>
 </resources>

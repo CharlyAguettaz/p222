@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">P222Appli</string>
+    <string name="trie_dechet">Trie des déchets</string>
+    <string name="trier">Triage</string>
+    <string name="ou_trier">Où trier</string>
+    <string name="profil_points">Profil et Points</string>
+</resources>
