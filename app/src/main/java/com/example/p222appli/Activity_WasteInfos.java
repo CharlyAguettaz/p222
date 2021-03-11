@@ -4,11 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +13,7 @@ public class Activity_WasteInfos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity__welcome);
     }
 
     private Menu m = null;
@@ -34,7 +29,7 @@ public class Activity_WasteInfos extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch( item.getItemId() ){
+        switch( item.getItemId()) {
             case R.id.item1:
                 Intent myIntent = new Intent(this.getApplicationContext(), Activity_Welcome.class);
                 startActivityForResult(myIntent, 0);
