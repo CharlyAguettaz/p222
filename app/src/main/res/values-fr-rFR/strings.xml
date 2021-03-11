@@ -13,4 +13,6 @@
     <string name="wt_other">Autre</string>
     <string name="validate">Valider</string>
     <string name="wt_organic">Organique</string>
+    <string name="profilmail">Mail utilisateur :</string>
+    <string name="profilname">Utilisateur :</string>
 </resources>
