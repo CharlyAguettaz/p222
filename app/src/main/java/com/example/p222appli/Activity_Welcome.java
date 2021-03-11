@@ -36,7 +36,7 @@ public class Activity_Welcome extends AppCompatActivity {
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:
-                Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
+                Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
                 return true;
             default:
