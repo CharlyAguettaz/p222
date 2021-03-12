@@ -27,7 +27,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Maps extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
@@ -48,6 +53,9 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
         searchView = findViewById(R.id.sv_location);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String location = searchView.getQuery().toString();
@@ -61,13 +69,18 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(location);
                     Address address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
                     googleMap.addMarker(new MarkerOptions().position(latLng).title(location));
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
                 }
+
                 return false;
             }
+
+
 
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -76,6 +89,31 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
             }
         });
         mapFragment.getMapAsync(this);
+    }
+
+    private List<String> readCsvFile() {
+        List<String> listLieu = new ArrayList<>();
+        InputStream is = getResources().openRawResource(R.raw.trier);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("windows-1252"))
+        );
+
+        String line = "";
+
+        try {
+
+            while ((line = reader.readLine()) != null) {
+                line.replace(",,,,,", "");
+                Lieu lieu = new Lieu();
+                lieu.setAdresse(line);
+                listLieu.add(lieu.getAdresse());
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listLieu;
     }
 
 
@@ -136,6 +174,28 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 Activity_Maps.this.googleMap = googleMap;
                 googleMap.moveCamera(CameraUpdateFactory.zoomBy(10));
                 googleMap.setMyLocationEnabled( true );
+                List<Address> listAdresse2 = null;
+
+                for (int i = 0; i < 5; i++) {
+
+                    String lieu = readCsvFile().get(i);
+
+                    Geocoder geocoder = new Geocoder(Activity_Maps.this);
+
+                    try {
+                        listAdresse2 = (geocoder.getFromLocationName(lieu, 1));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    assert listAdresse2 != null;
+                    Address address = listAdresse2.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    System.out.println(readCsvFile().size());
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+
+                }
             }
         });
     }
