@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Activity_Maps extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
+public class Activity_MapFromWaste extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
 
     private static final int PERMS_CALL_ID = 1234;
     private LocationManager lm;
@@ -63,7 +63,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 List<Address> addressList = null;
 
                 if (location != null || !location.equals("")){
-                    Geocoder geocoder = new Geocoder (Activity_Maps.this);
+                    Geocoder geocoder = new Geocoder (Activity_MapFromWaste.this);
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
 
@@ -117,10 +117,6 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         checkPermissions();
@@ -130,9 +126,9 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
     protected void checkPermissions(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
             return;
         }
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -170,7 +166,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                Activity_Maps.this.googleMap = googleMap;
+                Activity_MapFromWaste.this.googleMap = googleMap;
                 googleMap.setPadding(20,0,0,0);
                 googleMap.moveCamera(CameraUpdateFactory.zoomBy(10));
                 googleMap.setMyLocationEnabled( true );
@@ -179,7 +175,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
                     String lieu = readCsvFile().get(i);
-                    Geocoder geocoder = new Geocoder(Activity_Maps.this);
+                    Geocoder geocoder = new Geocoder(Activity_MapFromWaste.this);
 
                     try {
                         listAdresse2 = (geocoder.getFromLocationName(lieu, 1));
@@ -188,11 +184,28 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                    if (distanceBetween(latLng.latitude, latLng.longitude, googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()) < 20) {
+
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                    }
 
                 }
             }
         });
+    }
+
+    public static double distanceBetween(double lat1, double lon1, double lat2, double lon2){
+        if((lat1 == lat2) && (lon1 == lon2)){
+            return 0;
+        } else {
+            double theta = lon1 - lon2;
+            double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+            dist = Math.acos(dist);
+            dist = Math.toDegrees(dist);
+            dist = dist * 60 * 1.1515;
+            dist *= 1.609344;
+            return dist;
+        }
     }
 
 
@@ -239,4 +252,8 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
         }
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+    }
 }
