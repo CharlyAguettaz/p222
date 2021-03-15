@@ -45,11 +45,27 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
     private GoogleMap googleMap;
     private SearchView searchView;
     private List<Lieu> listLieu;
+    private int actWasteSorting;
+    private int glass;
+    private int paper;
+    private int plastic;
+    private int metal;
+    private int organic;
+    private int others;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__maps);
+
+        Bundle bundle = getIntent().getExtras();
+        actWasteSorting = bundle.getInt("idBoutton");
+        glass = bundle.getInt("idVerre");
+        paper = bundle.getInt("idPlastique");
+        plastic = bundle.getInt("idPapier");
+        metal = bundle.getInt("idMetal");
+        organic = bundle.getInt("idOrganique");
+        others = bundle.getInt("idAutres");
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.maps);
@@ -189,23 +205,24 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
+
                     if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
-                        if ( type == 1) {
+                        if ( type == 1 && actWasteSorting == glass) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         }
-                        else if ( type == 2) {
+                        else if ( type == 2 && actWasteSorting == paper) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                         }
-                        else if ( type == 3) {
+                        else if ( type == 3 && actWasteSorting == plastic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                         }
-                        else if ( type == 4) {
+                        else if ( type == 4 && actWasteSorting == metal) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                         }
-                        else if ( type == 5) {
+                        else if ( type == 5 && actWasteSorting == organic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         }
-                        else {
+                        else if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         }
                     }

@@ -1,15 +1,19 @@
 package com.example.p222appli;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,11 +39,20 @@ public class Activity_WasteSorting extends AppCompatActivity {
         Button bt_validate = findViewById(R.id.bt_validate);
 
         bt_validate.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Toast.makeText(Activity_WasteSorting.this, "going to map", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(Activity_WasteSorting.this, Activity_MapFromWaste.class);
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("idBoutton", radioButton.getId());
+                bundle.putInt("idVerre", (R.id.rdbt_glass));
+                bundle.putInt("idPapier", (R.id.rdbt_paper));
+                bundle.putInt("idPlastique", (R.id.rdbt_plastic));
+                bundle.putInt("idMetal", (R.id.rdbt_metal));
+                bundle.putInt("idOrganique", (R.id.rdbt_organic));
+                bundle.putInt("idAutres", (R.id.rdbt_other));
+                intent1.putExtras(bundle);
                 startActivity(intent1);
 
             }
