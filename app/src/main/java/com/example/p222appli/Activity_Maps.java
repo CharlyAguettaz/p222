@@ -188,11 +188,28 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                    if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
+
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                    }
 
                 }
             }
         });
+    }
+
+    public static double distanceBetween(double lat1, double lon1, double lat2, double lon2){
+        if((lat1 == lat2) && (lon1 == lon2)){
+            return 0;
+        } else {
+            double theta = lon1 - lon2;
+            double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+            dist = Math.acos(dist);
+            dist = Math.toDegrees(dist);
+            dist = dist * 60 * 1.1515;
+            dist *= 1.609344;
+            return dist;
+        }
     }
 
 
