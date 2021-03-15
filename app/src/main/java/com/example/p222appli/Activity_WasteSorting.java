@@ -1,14 +1,9 @@
 package com.example.p222appli;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +18,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
     RadioGroup rd_waste_choice;
     RadioButton radioButton;
+    RadioButton checkedBoutton;
 
 
     @Override
@@ -30,11 +26,8 @@ public class Activity_WasteSorting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__waste_sorting);
 
-
         //activité
 
-
-        TextView txt_waste_type = findViewById(R.id.txt_waste_type);
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
         Button bt_validate = findViewById(R.id.bt_validate);
 
@@ -42,7 +35,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(Activity_WasteSorting.this, "going to map", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_WasteSorting.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(Activity_WasteSorting.this, Activity_MapFromWaste.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("idBoutton", radioButton.getId());
@@ -90,6 +83,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
             case R.id.item4:
                 Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
+                Toast.makeText(Activity_WasteSorting.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

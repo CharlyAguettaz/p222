@@ -35,7 +35,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class Activity_Maps extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
 
@@ -136,7 +136,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
+                    Manifest.permission.ACCESS_COARSE_LOCATION,}, PERMS_CALL_ID );
             return;
         }
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -176,9 +176,15 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
             public void onMapReady(GoogleMap googleMap) {
                 Activity_Maps.this.googleMap = googleMap;
                 googleMap.setPadding(20,0,0,0);
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(10));
+                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
+                googleMap.setContentDescription(getString(R.string.legendeGlass) +
+                        getString(R.string.legendePaper) +
+                        getString(R.string.legendePlastic) +
+                        getString(R.string.legendeMetal) +
+                        getString(R.string.legendeOrganic) +
+                        getString(R.string.legendeOthers));
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
@@ -209,10 +215,12 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                         else if ( type == 5) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         }
-                        else {
+                        else if ( type == 6) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         }
                     }
+
+
 
                 }
             }
@@ -270,6 +278,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
             case R.id.item4:
                 Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
+                Toast.makeText(Activity_Maps.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

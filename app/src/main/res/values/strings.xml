@@ -14,4 +14,12 @@
     <string name="wt_organic">Organic</string>
     <string name="profilmail">User mail :</string>
     <string name="profilname">Username :</string>
+    <string name="noFound">No Found</string>
+    <string name="goingToMap">loading map</string>
+    <string name="legendeGlass">Orange: glass</string>
+    <string name="legendePaper">Blue: paper</string>
+    <string name="legendePlastic">Yellow: plastic</string>
+    <string name="legendeMetal">Green: metal</string>
+    <string name="legendeOrganic">Red: organic</string>
+    <string name="legendeOthers">Purple: others</string>
 </resources>

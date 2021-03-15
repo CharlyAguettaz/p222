@@ -15,4 +15,12 @@
     <string name="wt_organic">Organique</string>
     <string name="profilmail">Mail utilisateur :</string>
     <string name="profilname">Utilisateur :</string>
+    <string name="noFound">Aucune adresse</string>
+    <string name="goingToMap">chargement carte</string>
+    <string name="legendeGlass">Orange: verre</string>
+    <string name="legendePaper">Bleu: papier</string>
+    <string name="legendePlastic">Jaune: plastique</string>
+    <string name="legendeMetal">Vert: métal</string>
+    <string name="legendeOrganic">Rouge: organique</string>
+    <string name="legendeOthers">Violet: autres</string>
 </resources>

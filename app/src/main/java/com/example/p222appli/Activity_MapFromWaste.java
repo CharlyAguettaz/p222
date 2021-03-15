@@ -37,6 +37,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.widget.Toast.*;
+
 public class Activity_MapFromWaste extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
 
     private static final int PERMS_CALL_ID = 1234;
@@ -61,8 +63,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         Bundle bundle = getIntent().getExtras();
         actWasteSorting = bundle.getInt("idBoutton");
         glass = bundle.getInt("idVerre");
-        paper = bundle.getInt("idPlastique");
-        plastic = bundle.getInt("idPapier");
+        paper = bundle.getInt("idPapier");
+        plastic = bundle.getInt("idPlastique");
         metal = bundle.getInt("idMetal");
         organic = bundle.getInt("idOrganique");
         others = bundle.getInt("idAutres");
@@ -188,7 +190,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
             public void onMapReady(GoogleMap googleMap) {
                 Activity_MapFromWaste.this.googleMap = googleMap;
                 googleMap.setPadding(20,0,0,0);
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(10));
+                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
 
@@ -225,6 +227,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                         else if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         }
+
+
                     }
 
                 }
@@ -252,7 +256,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
-        Toast.makeText(this, "Location: " + latitude + "/" + longitude, Toast.LENGTH_LONG).show();
+        makeText(this, "Location: " + latitude + "/" + longitude, LENGTH_LONG).show();
         if (googleMap != null) {
             LatLng googleLocation = new LatLng ( latitude, longitude);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
@@ -284,6 +288,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
             case R.id.item4:
                 Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
+                Toast.makeText(Activity_MapFromWaste.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

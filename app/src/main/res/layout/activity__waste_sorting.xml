@@ -23,7 +23,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="checkButton"
-                android:checked="true"
                 android:text="@string/wt_glass" />
 
             <RadioButton
