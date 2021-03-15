@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.P222Appli">
         <activity android:name=".Activity_Maps"></activity>
+        <activity android:name=".Activity_MapFromWaste"/>
         <activity android:name=".Activity_WasteSorting" />
-        <activity android:name=".Activity_WasteInfos" />
         <activity android:name=".Activity_Login" />
         <activity android:name=".Activity_Welcome">
             <intent-filter>

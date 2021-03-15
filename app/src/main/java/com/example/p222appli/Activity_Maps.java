@@ -130,9 +130,9 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
     protected void checkPermissions(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
             return;
         }
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -227,7 +227,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 startActivityForResult(myIntent, 0);
                 return true;
             case R.id.item3:
-                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:

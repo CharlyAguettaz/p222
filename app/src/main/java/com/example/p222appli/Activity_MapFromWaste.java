@@ -44,6 +44,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
     private GoogleMap googleMap;
     private SearchView searchView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +129,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
+                    Manifest.permission.ACCESS_COARSE_LOCATION,}, PERMS_CALL_ID );
             return;
         }
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -184,7 +185,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
-                    if (distanceBetween(latLng.latitude, latLng.longitude, googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()) < 20) {
+                    if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
 
                         googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
                     }
@@ -240,7 +241,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 startActivityForResult(myIntent, 0);
                 return true;
             case R.id.item3:
-                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:

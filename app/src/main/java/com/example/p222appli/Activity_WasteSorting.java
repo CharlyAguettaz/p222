@@ -89,7 +89,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
                 startActivityForResult(myIntent, 0);
                 return true;
             case R.id.item3:
-                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:
