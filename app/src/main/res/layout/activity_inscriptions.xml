@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Login">
+    tools:context=".Activity_Inscriptions">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,21 +39,13 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/connexion"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20pt"
-            android:layout_marginLeft="50pt"
-            android:layout_marginRight="50pt"
-            android:text="connexion" />
-
-        <Button
-            android:id="@+id/bt_inscrire"
+            android:id="@+id/bt_valider"
             android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50pt"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="50pt"
-            android:text="Inscrire" />
+            android:text="Valider" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
