@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,6 +44,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private SearchView searchView;
+    private List<Lieu> listLieu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +93,8 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
         mapFragment.getMapAsync(this);
     }
 
-    private List<String> readCsvFile() {
-        List<String> listLieu = new ArrayList<>();
+    private List<Lieu> readCsvFile() {
+        listLieu = new ArrayList<>();
         InputStream is = getResources().openRawResource(R.raw.trier);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("windows-1252"))
@@ -103,10 +105,12 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
         try {
 
             while ((line = reader.readLine()) != null) {
-                line.replace(",,,,,", "");
+
+                String[] tokens = line.split(",,,,,");
                 Lieu lieu = new Lieu();
-                lieu.setAdresse(line);
-                listLieu.add(lieu.getAdresse());
+                lieu.setAdresse(tokens[0]);
+                lieu.setType(Integer.valueOf((tokens[1])));
+                listLieu.add(lieu);
             }
 
         } catch (IOException e) {
@@ -178,7 +182,8 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
-                    String lieu = readCsvFile().get(i);
+                    String lieu = listLieu.get(i).getAdresse();
+                    Integer type = listLieu.get(i).getType();
                     Geocoder geocoder = new Geocoder(Activity_Maps.this);
 
                     try {
@@ -189,15 +194,30 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
                     if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
-
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                        if ( type == 1) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        }
+                        else if ( type == 2) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        }
+                        else if ( type == 3) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                        }
+                        else if ( type == 4) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        }
+                        else if ( type == 5) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        }
+                        else {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        }
                     }
 
                 }
             }
         });
     }
-
     public static double distanceBetween(double lat1, double lon1, double lat2, double lon2){
         if((lat1 == lat2) && (lon1 == lon2)){
             return 0;
