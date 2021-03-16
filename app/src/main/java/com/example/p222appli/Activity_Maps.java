@@ -117,7 +117,9 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 lieu.setAdresse(tokens[0]);
                 lieu.setType(Integer.valueOf((tokens[1])));
                 listLieu.add(lieu);
+                System.out.println(lieu);
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -191,7 +193,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
                     String lieu = listLieu.get(i).getAdresse();
-                    Integer type = listLieu.get(i).getType();
+                    int type = listLieu.get(i).getType();
                     Geocoder geocoder = new Geocoder(Activity_Maps.this);
 
                     try {
@@ -201,7 +203,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
-                    if (distanceBetween(latLng.latitude, latLng.longitude, lat, lon) < 20) {
+                    if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
                         if ( type == 1) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         }

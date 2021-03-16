@@ -220,7 +220,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
 
-                    if (distanceBetween(latLng.latitude, latLng.longitude, lat, lon) < 20) {
+                    if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
                         if ( type == 1 && actWasteSorting == glass) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         }
