@@ -22,4 +22,9 @@
     <string name="legendeMetal">Green: metal</string>
     <string name="legendeOrganic">Red: organic</string>
     <string name="legendeOthers">Purple: others</string>
+    <string name="login_name">name</string>
+    <string name="login_mail">mail</string>
+    <string name="login_mdp">password</string>
+    <string name="toNewuser">Register</string>
+    <string name="connect">Connect</string>
 </resources>

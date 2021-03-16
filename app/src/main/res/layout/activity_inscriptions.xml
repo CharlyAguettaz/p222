@@ -27,8 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/login_mail"
-            android:inputType="textPersonName" />
+            android:hint="@string/login_mail" />
 
         <EditText
             android:id="@+id/et_password"
@@ -45,7 +44,7 @@
             android:layout_marginLeft="50pt"
             android:layout_marginTop="50dp"
             android:layout_marginRight="50pt"
-            android:text="Valider" />
+            android:text="@string/validate" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
