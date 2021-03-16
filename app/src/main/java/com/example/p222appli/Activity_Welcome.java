@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class Activity_Welcome extends AppCompatActivity {
 
@@ -32,12 +33,13 @@ public class Activity_Welcome extends AppCompatActivity {
         switch( item.getItemId()) {
 
             case R.id.item3:
-                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:
                 Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
+                Toast.makeText(Activity_Welcome.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

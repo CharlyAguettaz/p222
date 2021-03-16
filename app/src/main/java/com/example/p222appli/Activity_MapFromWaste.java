@@ -24,6 +24,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -34,7 +36,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static android.widget.Toast.*;
 
 public class Activity_MapFromWaste extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
 
@@ -43,11 +46,28 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private SearchView searchView;
+    private List<Lieu> listLieu;
+    private int actWasteSorting;
+    private int glass;
+    private int paper;
+    private int plastic;
+    private int metal;
+    private int organic;
+    private int others;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__maps);
+
+        Bundle bundle = getIntent().getExtras();
+        actWasteSorting = bundle.getInt("idBoutton");
+        glass = bundle.getInt("idVerre");
+        paper = bundle.getInt("idPapier");
+        plastic = bundle.getInt("idPlastique");
+        metal = bundle.getInt("idMetal");
+        organic = bundle.getInt("idOrganique");
+        others = bundle.getInt("idAutres");
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.maps);
@@ -91,8 +111,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         mapFragment.getMapAsync(this);
     }
 
-    private List<String> readCsvFile() {
-        List<String> listLieu = new ArrayList<>();
+    private List<Lieu> readCsvFile() {
+        listLieu = new ArrayList<>();
         InputStream is = getResources().openRawResource(R.raw.trier);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("windows-1252"))
@@ -103,10 +123,12 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         try {
 
             while ((line = reader.readLine()) != null) {
-                line.replace(",,,,,", "");
+
+                String[] tokens = line.split(",,,,,");
                 Lieu lieu = new Lieu();
-                lieu.setAdresse(line);
-                listLieu.add(lieu.getAdresse());
+                lieu.setAdresse(tokens[0]);
+                lieu.setType(Integer.valueOf((tokens[1])));
+                listLieu.add(lieu);
             }
 
         } catch (IOException e) {
@@ -128,7 +150,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, PERMS_CALL_ID );
+                    Manifest.permission.ACCESS_COARSE_LOCATION,}, PERMS_CALL_ID );
             return;
         }
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -168,13 +190,14 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
             public void onMapReady(GoogleMap googleMap) {
                 Activity_MapFromWaste.this.googleMap = googleMap;
                 googleMap.setPadding(20,0,0,0);
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(10));
+                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
-                    String lieu = readCsvFile().get(i);
+                    String lieu = listLieu.get(i).getAdresse();
+                    Integer type = listLieu.get(i).getType();
                     Geocoder geocoder = new Geocoder(Activity_MapFromWaste.this);
 
                     try {
@@ -184,9 +207,28 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
-                    if (distanceBetween(latLng.latitude, latLng.longitude, googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()) < 20) {
 
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu));
+                    if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
+                        if ( type == 1 && actWasteSorting == glass) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        }
+                        else if ( type == 2 && actWasteSorting == paper) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        }
+                        else if ( type == 3 && actWasteSorting == plastic) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                        }
+                        else if ( type == 4 && actWasteSorting == metal) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        }
+                        else if ( type == 5 && actWasteSorting == organic) {
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        }
+                        else if ( type == 6 && actWasteSorting == others){
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        }
+
+
                     }
 
                 }
@@ -214,7 +256,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
-        Toast.makeText(this, "Location: " + latitude + "/" + longitude, Toast.LENGTH_LONG).show();
+        makeText(this, "Location: " + latitude + "/" + longitude, LENGTH_LONG).show();
         if (googleMap != null) {
             LatLng googleLocation = new LatLng ( latitude, longitude);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
@@ -240,12 +282,13 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 startActivityForResult(myIntent, 0);
                 return true;
             case R.id.item3:
-                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteInfos.class);
+                Intent myIntent2 = new Intent(this.getApplicationContext(), Activity_WasteSorting.class);
                 startActivityForResult(myIntent2, 1);
                 return true;
             case R.id.item4:
                 Intent myIntent3 = new Intent(this.getApplicationContext(), Activity_Maps.class);
                 startActivityForResult(myIntent3, 2);
+                Toast.makeText(Activity_MapFromWaste.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
