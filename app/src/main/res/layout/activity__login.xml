@@ -14,13 +14,6 @@
         tools:layout_editor_absoluteX="29dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="login"
-            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/et_mail"

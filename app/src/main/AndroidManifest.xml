@@ -12,19 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P222Appli">
-        <activity android:name=".Activity_Inscriptions"/>
+        <activity android:name=".Activity_Inscriptions"></activity>
         <activity android:name=".Activity_Maps" />
         <activity android:name=".Activity_MapFromWaste" />
         <activity android:name=".Activity_WasteSorting" />
         <activity android:name=".Activity_Login">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Activity_Welcome">
-        </activity>
+        <activity android:name=".Activity_Welcome"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
