@@ -1,6 +1,7 @@
 package com.example.p222appli;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -41,6 +42,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String request = "insert into T_Profil (names, mail, password, points) values ('" + name + "', '" + mail + "','" +  password + "','" + points +"');";
         this.getWritableDatabase().execSQL(request);
         Log.i("DATABASE", "insertsProfil invoked");
+    }
+
+    public int readPoints(String inName, String inMail, String inPassword) {
+        int points = 0;
+        String request = "select points from T_Profil where inName = mail and inMail = mail and inPassword = password;";
+        Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            points = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.i("DATABASE", "readPoints invoked");
+        return points;
     }
 
 }

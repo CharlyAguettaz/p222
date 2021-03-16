@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="login"
+            android:hint="@string/login_name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="mail"
+            android:hint="@string/login_mail"
             android:inputType="textPersonName" />
 
         <EditText
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/login_mdp"
             android:inputType="textPersonName" />
 
         <Button
