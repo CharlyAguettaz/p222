@@ -37,6 +37,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.location.LocationManager.GPS_PROVIDER;
 import static android.widget.Toast.*;
 
 public class Activity_MapFromWaste extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
@@ -54,6 +55,9 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
     private int metal;
     private int organic;
     private int others;
+    private double lat;
+    private double lon;
+    private LatLng latLng2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.maps);
+        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+
 
         searchView = findViewById(R.id.sv_location);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -93,7 +99,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     System.out.println(location);
                     Address address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
 
                 }
 
@@ -153,18 +160,22 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     Manifest.permission.ACCESS_COARSE_LOCATION,}, PERMS_CALL_ID );
             return;
         }
-        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
+
+        if (lm.isProviderEnabled(GPS_PROVIDER)) {
+            lm.requestLocationUpdates(GPS_PROVIDER, 10000, 0, this);
         }
         if ( lm.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)){
-            lm.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10000, 0, this);
+            lm.requestLocationUpdates( GPS_PROVIDER, 10000, 0, this);
         }
         if ( lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            lm.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10000, 0, this);
+            lm.requestLocationUpdates( GPS_PROVIDER, 10000, 0, this);
         }
 
-        loadMap();
+        lat = lm.getLastKnownLocation(GPS_PROVIDER).getLatitude();
+        lon = lm.getLastKnownLocation(GPS_PROVIDER).getLongitude();
+
+
+                loadMap();
     }
 
     @Override
@@ -189,10 +200,11 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 Activity_MapFromWaste.this.googleMap = googleMap;
-                googleMap.setPadding(20,0,0,0);
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+                latLng2 = new LatLng(lat, lon);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom((latLng2), 15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
+
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
@@ -208,7 +220,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
 
-                    if (distanceBetween(latLng.latitude, latLng.longitude, lm.getLastKnownLocation(lm.GPS_PROVIDER).getLatitude(), lm.getLastKnownLocation(lm.GPS_PROVIDER).getLongitude()) < 20) {
+                    if (distanceBetween(latLng.latitude, latLng.longitude, lat, lon) < 20) {
                         if ( type == 1 && actWasteSorting == glass) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         }
@@ -227,7 +239,6 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                         else if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         }
-
 
                     }
 

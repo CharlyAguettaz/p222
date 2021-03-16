@@ -17,7 +17,6 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
 
     //private TextView pointsProfil;
     private DatabaseManager databaseManager;
-    Button bt_connexion;
     Button bt_valider;
     private EditText name, mail, password;
 

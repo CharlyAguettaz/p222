@@ -18,7 +18,6 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
     RadioGroup rd_waste_choice;
     RadioButton radioButton;
-    RadioButton checkedBoutton;
 
 
     @Override
