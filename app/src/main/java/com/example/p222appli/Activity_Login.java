@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,8 @@ import android.widget.Toast;
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
     //private TextView pointsProfil;
-    private DatabaseManager databaseManager;
+    private SQLiteDatabase db;
+    DatabaseManager databaseManager;
     private EditText name, mail, password;
     private Button connexion;
     private Button bt_inscrire;
@@ -38,9 +41,13 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connexion:
-                databaseManager = new DatabaseManager(this);
+                try {
+                    db = databaseManager.getReadableDatabase();
+                } catch (SQLException ex) {
+                    db = databaseManager.getWritableDatabase();
+                }
                 int idUserConnected = databaseManager.readAuthProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
-                databaseManager.close();
+                db.close();
                 if (idUserConnected != -1) {
                     Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(this, Activity_Welcome.class);

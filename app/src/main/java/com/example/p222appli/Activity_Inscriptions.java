@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +18,8 @@ import android.widget.Toast;
 public class Activity_Inscriptions extends AppCompatActivity implements View.OnClickListener {
 
     //private TextView pointsProfil;
-    private DatabaseManager databaseManager;
+    private SQLiteDatabase db;
+    DatabaseManager databaseManager;
     private Button bt_valider;
     private EditText name, mail, password;
 
@@ -39,9 +42,14 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
             Toast.makeText(getApplicationContext(), "Know connect yourself", Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, Activity_Login.class);
 
-            databaseManager = new DatabaseManager(this);
+            try {
+                db = databaseManager.getReadableDatabase();
+            } catch (SQLException ex) {
+                db = databaseManager.getWritableDatabase();
+            }
+
             databaseManager.insertsProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString(),0);
-            databaseManager.close();
+            db.close();
             Log.v("input database", name.getText().toString() + ", " + mail.getText().toString() + ", " + password.getText().toString() + ", 0");
 
             Toast.makeText(getApplicationContext(), "inscription", Toast.LENGTH_LONG).show();

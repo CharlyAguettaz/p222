@@ -3,6 +3,8 @@ package com.example.p222appli;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +26,8 @@ import java.util.List;
 
 public class Activity_Welcome extends AppCompatActivity {
 
-    private DatabaseManager databaseManager;
+    private SQLiteDatabase db;
+    DatabaseManager databaseManager;
     private RadioGroup rd_waste_choice;
     private RadioButton radioButton;
     protected int idUserConnected;
@@ -39,10 +42,14 @@ public class Activity_Welcome extends AppCompatActivity {
         TextView profilName = findViewById(R.id.txt_bdd_profilname);
         TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
 
-        databaseManager = new DatabaseManager(this);
+        try {
+            db = databaseManager.getReadableDatabase();
+        } catch (SQLException ex) {
+            db = databaseManager.getWritableDatabase();
+        }
         profilName.setText((databaseManager.readName(idUserConnected)));
         profilMail.setText((databaseManager.readMail(idUserConnected)));
-        databaseManager.close();
+        db.close();
 
         Date now = new Date();
 
