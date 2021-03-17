@@ -1,11 +1,9 @@
 package com.example.p222appli;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.os.IResultReceiver;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -25,8 +24,10 @@ import java.util.List;
 
 public class Activity_Welcome extends AppCompatActivity {
 
+    protected DatabaseManager databaseManager;
     RadioGroup rd_waste_choice;
     RadioButton radioButton;
+    int idUserConnected;
     private String stringAdresse;
 
     @Override
@@ -35,7 +36,11 @@ public class Activity_Welcome extends AppCompatActivity {
         setContentView(R.layout.activity__welcome);
 
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
+        TextView profilname = findViewById(R.id.txt_bdd_profilname);
+        TextView profilmail = findViewById(R.id.txt_bdd_profilmail);
 
+        profilname.setText((databaseManager.readName(idUserConnected)));
+        profilmail.setText((databaseManager.readMail(idUserConnected)));
 
         Date now = new Date();
 
@@ -69,8 +74,6 @@ public class Activity_Welcome extends AppCompatActivity {
         //---------------------------------------------------
         Button addButton = (Button)findViewById(R.id.idButtonAdd);
         Button deleteButton = (Button)findViewById(R.id.idButtonDelete);
-
-
 
         // Pour desactiver le bouton lorsqu'il n'y a pas de valeur à supprimer.. cf code bouton deleteButton
         deleteButton.setEnabled(false);
@@ -124,6 +127,7 @@ public class Activity_Welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 // Il vaudrait mieux désactiver le bouton s'il n'y a plus de valeur
                 if (listeValeursDansLaListe.size()>0) {
                     listeValeursDansLaListe.remove(listeValeursDansLaListe.size() - 1);
@@ -138,6 +142,7 @@ public class Activity_Welcome extends AppCompatActivity {
 
 
     }
+
 
 
     private Menu m = null;
