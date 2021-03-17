@@ -15,32 +15,31 @@
     tools:layout_editor_absoluteY="0dp">
 
 
-
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="login"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="111dp" />
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_name"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="111dp" />
 
         <EditText
             android:id="@+id/et_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="mail"
+            android:hint="@string/login_mail"
             android:inputType="textPersonName" />
 
         <EditText
-        android:id="@+id/et_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="password"
-        android:inputType="textPersonName" />
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_mdp"
+            android:inputType="textPersonName" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
