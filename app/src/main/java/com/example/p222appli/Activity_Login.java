@@ -30,6 +30,7 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__login);
 
+        //db = this.getIntent().getExtras();
         connexion = (Button) findViewById(R.id.connexion);
         bt_inscrire = (Button) findViewById(R.id.bt_inscrire);
         name = (EditText) findViewById(R.id.et_name);
@@ -37,6 +38,9 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
         password = (EditText) findViewById(R.id.et_password);
         connexion.setOnClickListener(this);
         bt_inscrire.setOnClickListener(this);
+
+        databaseManager = new DatabaseManager(this);
+        open();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -45,13 +49,15 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.connexion:
 
-                databaseManager = new DatabaseManager(this);
-                open();
+                //databaseManager = new DatabaseManager(this);
+                //open();
                 int idUserConnected = databaseManager.readAuthProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
                 db.close();
                 if (idUserConnected != -1) {
                     Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(this, Activity_Welcome.class);
+                    i.putExtra("idUserConnected", idUserConnected);
+                    //i.putExtra("", );
                     startActivity(i);
                 } else {
                     Toast.makeText(getApplicationContext(), "incorrect info", Toast.LENGTH_LONG).show();
@@ -63,7 +69,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-
 
     public void open() throws SQLiteException {
         try {

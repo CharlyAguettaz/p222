@@ -9,7 +9,7 @@ import android.util.Log;
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public final String SQL_CREATE = "create table if not exists T_Profil (idProfil integer primary key autoincrement, name text not null, mail text not null, password text not null, points integer not null);";
     public final String SQL_DELETE = "drop table if exists T_Profil;";
@@ -99,4 +99,5 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Log.i("DATABASE", "readMail invoked");
         return answer;
     }
+
 }

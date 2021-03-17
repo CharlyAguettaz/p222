@@ -51,6 +51,8 @@ public class Activity_Welcome extends AppCompatActivity {
         TextView profilName = findViewById(R.id.txt_bdd_profilname);
         TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
 
+        idUserConnected = this.getIntent().getExtras().getInt("idUserConnected");
+
         databaseManager = new DatabaseManager(this);
         open();
         profilName.setText((databaseManager.readName(idUserConnected)));
