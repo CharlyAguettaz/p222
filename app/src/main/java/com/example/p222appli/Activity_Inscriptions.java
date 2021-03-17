@@ -63,6 +63,4 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
         }
 
     }
-
-
 }

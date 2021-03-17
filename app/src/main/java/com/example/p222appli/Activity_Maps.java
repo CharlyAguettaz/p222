@@ -210,7 +210,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
                     if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
-
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     }
 
 

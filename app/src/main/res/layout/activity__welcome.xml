@@ -63,7 +63,7 @@
                 android:id="@+id/txt_waste_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Qu'avez vous trié aujourd'hui ?" />
+                android:text="@string/toSort" />
 
             <RadioGroup
                 android:id="@+id/rd_waste_choice"

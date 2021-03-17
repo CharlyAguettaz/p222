@@ -27,4 +27,6 @@
     <string name="login_mdp">password</string>
     <string name="toNewuser">Register</string>
     <string name="connect">Connect</string>
+    <string name="adressSelected">\"Address selected \"</string>
+    <string name="toSort">What do you have to sort out today?</string>
 </resources>

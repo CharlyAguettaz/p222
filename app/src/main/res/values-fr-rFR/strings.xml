@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">P222Appli</string>
     <string name="trie_dechet">Trie des déchets</string>
-    <string name="trier">Triage</string>
+    <string name="trier">Trie</string>
     <string name="ou_trier">Où trier</string>
     <string name="profil_points">Profil et Points</string>
     <string name="waste_types">Type de Dechets</string>
@@ -28,4 +28,6 @@
     <string name="login_mdp">mot de passe</string>
     <string name="toNewuser">Inscription</string>
     <string name="connect">Se connecter</string>
+    <string name="adressSelected">\"Adresse sélectionnée \"</string>
+    <string name="toSort">"Que devez-vous trier aujoud'hui ?"</string>
 </resources>

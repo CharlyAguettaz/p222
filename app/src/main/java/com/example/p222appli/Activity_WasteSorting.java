@@ -31,6 +31,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
         Button bt_validate = findViewById(R.id.bt_validate);
+        tv_adresse = findViewById(R.id.tv_adresse);
 
         bt_validate.setOnClickListener(new View.OnClickListener() {
 
@@ -61,7 +62,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
         if (requestCode == 1){
             if (resultCode == RESULT_OK) {
-                String adresse = "adress selected" + data.getStringExtra("Adresse");
+                String adresse = getString(R.string.adressSelected) + data.getStringExtra("Adresse");
                 tv_adresse.setText(adresse);
             }
         }
