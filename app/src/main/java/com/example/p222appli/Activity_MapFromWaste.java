@@ -27,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
@@ -72,6 +73,9 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
         metal = bundle.getInt("idMetal");
         organic = bundle.getInt("idOrganique");
         others = bundle.getInt("idAutres");
+
+        Intent intent = getIntent();
+        String wasteType = intent.getStringExtra("Type déchet");
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.maps);
@@ -204,6 +208,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom((latLng2), 15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
+                List<Lieu> listLieu = readCsvFile();
 
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
@@ -211,6 +216,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     String lieu = listLieu.get(i).getAdresse();
                     Integer type = listLieu.get(i).getType();
                     Geocoder geocoder = new Geocoder(Activity_MapFromWaste.this);
+
 
                     try {
                         listAdresse2 = (geocoder.getFromLocationName(lieu, 1));
@@ -223,21 +229,99 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
                         if ( type == 1 && actWasteSorting == glass) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
                         }
                         else if ( type == 2 && actWasteSorting == paper) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
+
                         }
                         else if ( type == 3 && actWasteSorting == plastic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
                         }
                         else if ( type == 4 && actWasteSorting == metal) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
                         }
                         else if ( type == 5 && actWasteSorting == organic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
                         }
                         else if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra("Adresse", marker.getTitle());
+
+                                    setResult(RESULT_OK, resultIntent);
+                                    finish();
+                                    return false;
+                                }
+                            });
                         }
 
                     }
