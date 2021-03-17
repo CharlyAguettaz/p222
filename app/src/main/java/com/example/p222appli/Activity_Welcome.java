@@ -35,11 +35,11 @@ public class Activity_Welcome extends AppCompatActivity {
         setContentView(R.layout.activity__welcome);
 
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
-        TextView profilname = findViewById(R.id.txt_bdd_profilname);
-        TextView profilmail = findViewById(R.id.txt_bdd_profilmail);
+        TextView profilName = findViewById(R.id.txt_bdd_profilname);
+        TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
 
-        profilname.setText((databaseManager.readName(idUserConnected)));
-        profilmail.setText((databaseManager.readMail(idUserConnected)));
+        profilName.setText((databaseManager.readName(idUserConnected)));
+        profilMail.setText((databaseManager.readMail(idUserConnected)));
 
         Date now = new Date();
 
