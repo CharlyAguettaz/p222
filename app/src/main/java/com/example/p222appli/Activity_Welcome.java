@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +34,14 @@ public class Activity_Welcome extends AppCompatActivity {
     protected int idUserConnected;
     private String stringAdresse;
 
+    public void open() throws SQLiteException {
+        try {
+            db = databaseManager.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = databaseManager.getReadableDatabase();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +51,8 @@ public class Activity_Welcome extends AppCompatActivity {
         TextView profilName = findViewById(R.id.txt_bdd_profilname);
         TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
 
-        try {
-            db = databaseManager.getReadableDatabase();
-        } catch (SQLException ex) {
-            db = databaseManager.getWritableDatabase();
-        }
+        databaseManager = new DatabaseManager(this);
+        open();
         profilName.setText((databaseManager.readName(idUserConnected)));
         profilMail.setText((databaseManager.readMail(idUserConnected)));
         db.close();

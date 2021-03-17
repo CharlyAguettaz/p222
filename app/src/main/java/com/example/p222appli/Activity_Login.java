@@ -6,12 +6,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.CDATASection;
 
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,11 +44,9 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connexion:
-                try {
-                    db = databaseManager.getReadableDatabase();
-                } catch (SQLException ex) {
-                    db = databaseManager.getWritableDatabase();
-                }
+
+                databaseManager = new DatabaseManager(this);
+                open();
                 int idUserConnected = databaseManager.readAuthProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
                 db.close();
                 if (idUserConnected != -1) {
@@ -61,5 +62,14 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
                 startActivity(i2);
         }
 
+    }
+
+
+    public void open() throws SQLiteException {
+        try {
+            db = databaseManager.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = databaseManager.getReadableDatabase();
+        }
     }
 }

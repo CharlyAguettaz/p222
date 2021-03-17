@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,14 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
     DatabaseManager databaseManager;
     private Button bt_valider;
     private EditText name, mail, password;
+
+    public void open() throws SQLiteException {
+        try {
+            db = databaseManager.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = databaseManager.getReadableDatabase();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +51,9 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
             Toast.makeText(getApplicationContext(), "Know connect yourself", Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, Activity_Login.class);
 
-            try {
-                db = databaseManager.getReadableDatabase();
-            } catch (SQLException ex) {
-                db = databaseManager.getWritableDatabase();
-            }
-
+            databaseManager = new DatabaseManager(this);
+            databaseManager.onCreate(db);
+            open();
             databaseManager.insertsProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString(),0);
             db.close();
             Log.v("input database", name.getText().toString() + ", " + mail.getText().toString() + ", " + password.getText().toString() + ", 0");
@@ -57,4 +63,6 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
         }
 
     }
+
+
 }
