@@ -14,10 +14,10 @@ import android.widget.Toast;
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
     private TextView pointsProfil;
-    protected DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
     private EditText name, mail, password;
-    Button connexion;
-    Button bt_inscrire;
+    private Button connexion;
+    private Button bt_inscrire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

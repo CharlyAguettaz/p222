@@ -24,10 +24,10 @@ import java.util.List;
 
 public class Activity_Welcome extends AppCompatActivity {
 
-    protected DatabaseManager databaseManager;
-    RadioGroup rd_waste_choice;
-    RadioButton radioButton;
-    int idUserConnected;
+    private DatabaseManager databaseManager;
+    private RadioGroup rd_waste_choice;
+    private RadioButton radioButton;
+    protected int idUserConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
