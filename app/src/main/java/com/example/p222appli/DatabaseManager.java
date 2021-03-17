@@ -33,12 +33,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE);
         Log.i("DATABASE", "onDowngrade invoked");
     }
 
     public void insertsProfil(String name, String mail, String password) {
-        name = name.replace("'", "''");
+
         String request = "insert into T_Profil (name, mail, password) values ('" + name + "','" + mail + "','" +  password + "')";
         this.getWritableDatabase().execSQL(request);
         Log.i("DATABASE", "insertsProfil invoked");
