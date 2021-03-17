@@ -46,7 +46,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public int readPoints(int inId) {
         int points = 0;
-        String request = "select points from T_Profil where idProfil = "+inId+";";
+        String request = "select points from T_Profil where idProfil = " + inId + ";";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -60,7 +60,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public int readAuthProfil(String inName, String inMail, String inPassword) {
         int answer = -1;
-        String request = "select idProfil from T_Profil where name = "+inName+" and mail = "+inMail+" and password = "+inPassword+";";
+        String request = "select idProfil from T_Profil where name = " + inName + " and mail = " + inMail + " and password = " + inPassword + ";";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -74,7 +74,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public String readName(int inId) {
         String answer = null;
-        String request = "select name from T_Profil where idProfil = "+inId+";";
+        String request = "select name from T_Profil where idProfil = " + inId + ";";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -88,7 +88,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public String readMail (int inId) {
         String answer = null;
-        String request = "select mail from T_Profil where idProfil = "+inId+";";
+        String request = "select mail from T_Profil where idProfil = " + inId + ";";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
