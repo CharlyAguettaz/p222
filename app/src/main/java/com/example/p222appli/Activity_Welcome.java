@@ -28,6 +28,7 @@ public class Activity_Welcome extends AppCompatActivity {
     private RadioGroup rd_waste_choice;
     private RadioButton radioButton;
     protected int idUserConnected;
+    private String stringAdresse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,27 +83,33 @@ public class Activity_Welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(radioButton.getId() == R.id.rdbt_glass){
-                    listeValeursDansLaListe.add(getString(R.string.wt_glass) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_glass) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
                 else if(radioButton.getId() == R.id.rdbt_paper){
-                    listeValeursDansLaListe.add(getString(R.string.wt_paper) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_paper) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
                 else if(radioButton.getId() == R.id.rdbt_plastic){
-                    listeValeursDansLaListe.add(getString(R.string.wt_plastic) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_plastic) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
                 else if(radioButton.getId() == R.id.rdbt_metal){
-                    listeValeursDansLaListe.add(getString(R.string.wt_metal) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_metal) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
                 else if(radioButton.getId() == R.id.rdbt_organic){
-                    listeValeursDansLaListe.add(getString(R.string.wt_organic) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_organic) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
                 else if(radioButton.getId() == R.id.rdbt_other){
-                    listeValeursDansLaListe.add(getString(R.string.wt_other) + " " + formattedDate);
+                    stringAdresse = getString(R.string.wt_other) + " " + formattedDate;
+                    listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
 
@@ -119,13 +126,7 @@ public class Activity_Welcome extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // bof bof ....
-                /*
-                if (listeValeursDansLaListe.size()>0) {
-                    listeValeursDansLaListe.remove(0);
-                    adapter.notifyDataSetChanged();
-                }
-                */
+
 
                 // Il vaudrait mieux désactiver le bouton s'il n'y a plus de valeur
                 if (listeValeursDansLaListe.size()>0) {
@@ -138,6 +139,8 @@ public class Activity_Welcome extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 

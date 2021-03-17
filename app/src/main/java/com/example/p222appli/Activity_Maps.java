@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
@@ -46,7 +48,6 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private SearchView searchView;
-    private List<Lieu> listLieu;
     private double lat;
     private double lon;
     private LatLng latLng2;
@@ -55,6 +56,9 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__maps);
+
+
+
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.maps);
@@ -99,14 +103,14 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
         mapFragment.getMapAsync(this);
     }
 
-    private List<Lieu> readCsvFile() {
-        listLieu = new ArrayList<>();
+    public List<Lieu> readCsvFile() {
+        List<Lieu> listLieu = new ArrayList<>();
         InputStream is = getResources().openRawResource(R.raw.trier);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("windows-1252"))
         );
 
-        String line = "";
+        String line ;
 
         try {
 
@@ -117,7 +121,7 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 lieu.setAdresse(tokens[0]);
                 lieu.setType(Integer.valueOf((tokens[1])));
                 listLieu.add(lieu);
-                System.out.println(lieu);
+                System.out.println(lieu.getType());
             }
 
 
@@ -189,8 +193,10 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom((latLng2), 15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
+                List<Lieu> listLieu = readCsvFile();
 
-                for (int i = 0; i < readCsvFile().size(); i++) {
+
+                for (int i = 0; i < listLieu.size(); i++) {
 
                     String lieu = listLieu.get(i).getAdresse();
                     int type = listLieu.get(i).getType();
@@ -204,26 +210,8 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
                     if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
-                        if ( type == 1) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                        }
-                        else if ( type == 2) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                        }
-                        else if ( type == 3) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                        }
-                        else if ( type == 4) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                        }
-                        else if ( type == 5) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                        }
-                        else if ( type == 6) {
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        }
-                    }
 
+                    }
 
 
                 }

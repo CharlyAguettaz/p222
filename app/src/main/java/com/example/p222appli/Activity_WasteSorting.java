@@ -1,6 +1,7 @@
 package com.example.p222appli;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
 
     RadioGroup rd_waste_choice;
     RadioButton radioButton;
+    TextView tv_adresse;
 
 
     @Override
@@ -35,7 +37,7 @@ public class Activity_WasteSorting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Activity_WasteSorting.this, R.string.goingToMap, Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(Activity_WasteSorting.this, Activity_MapFromWaste.class);
+                Intent intent = new Intent(Activity_WasteSorting.this, Activity_MapFromWaste.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("idBoutton", radioButton.getId());
                 bundle.putInt("idVerre", (R.id.rdbt_glass));
@@ -44,13 +46,27 @@ public class Activity_WasteSorting extends AppCompatActivity {
                 bundle.putInt("idMetal", (R.id.rdbt_metal));
                 bundle.putInt("idOrganique", (R.id.rdbt_organic));
                 bundle.putInt("idAutres", (R.id.rdbt_other));
-                intent1.putExtras(bundle);
-                startActivity(intent1);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
+
 
             }
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK) {
+                String adresse = "adress selected" + data.getStringExtra("Adresse");
+                tv_adresse.setText(adresse);
+            }
+        }
+    }
+
     public void checkButton(View v){
         int radioId = rd_waste_choice.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
