@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -23,8 +24,10 @@ import java.util.List;
 
 public class Activity_Welcome extends AppCompatActivity {
 
+    protected DatabaseManager databaseManager;
     RadioGroup rd_waste_choice;
     RadioButton radioButton;
+    int idUserConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,11 @@ public class Activity_Welcome extends AppCompatActivity {
         setContentView(R.layout.activity__welcome);
 
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
+        TextView profilname = findViewById(R.id.txt_bdd_profilname);
+        TextView profilmail = findViewById(R.id.txt_bdd_profilmail);
 
+        profilname.setText((databaseManager.readName(idUserConnected)));
+        profilmail.setText((databaseManager.readMail(idUserConnected)));
 
         Date now = new Date();
 

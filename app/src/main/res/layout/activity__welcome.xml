@@ -32,8 +32,7 @@
                 <TextView
                     android:id="@+id/txt_bdd_profilname"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -47,10 +46,9 @@
                     android:text="@string/profilmail" />
 
                 <TextView
-                    android:id="@+id/txt_bdb_profilmail"
+                    android:id="@+id/txt_bdd_profilmail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="mail" />
+                    android:layout_height="wrap_content" />
             </TableRow>
 
         </TableLayout>

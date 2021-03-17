@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class Activity_Inscriptions extends AppCompatActivity implements View.OnClickListener {
 
     //private TextView pointsProfil;
-    private DatabaseManager databaseManager;
+    protected DatabaseManager databaseManager;
     Button bt_valider;
     private EditText name, mail, password;
 

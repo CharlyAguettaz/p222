@@ -46,7 +46,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public int readPoints(String inName, String inMail, String inPassword) {
         int points = 0;
-        String request = "select points from T_Profil where inName = mail and inMail = mail and inPassword = password;";
+        String request = "select points from T_Profil where inName = name and inMail = mail and inPassword = password;";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -58,4 +58,45 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return points;
     }
 
+    public int readAuthProfil(String inName, String inMail, String inPassword) {
+        int answer = -1;
+        String request = "select idProfil from T_Profil where inName = name and inMail = mail and inPassword = password;";
+        Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            answer = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.i("DATABASE", "readAuthProfil invoked");
+        return answer;
+    }
+
+    public String readName(int inId) {
+        String answer = null;
+        String request = "select name from T_Profil where inId = idProfil;";
+        Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            answer = cursor.getString(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.i("DATABASE", "readName invoked");
+        return answer;
+    }
+
+    public String readMail (int inId) {
+        String answer = null;
+        String request = "select mail from T_Profil where inId = idProfil;";
+        Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            answer = cursor.getString(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.i("DATABASE", "readMail invoked");
+        return answer;
+    }
 }

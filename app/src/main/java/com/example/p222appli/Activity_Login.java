@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
     private TextView pointsProfil;
-    private DatabaseManager databaseManager;
+    protected DatabaseManager databaseManager;
+    private EditText name, mail, password;
     Button connexion;
     Button bt_inscrire;
 
@@ -24,6 +26,9 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
 
         connexion = (Button) findViewById(R.id.connexion);
         bt_inscrire = (Button) findViewById(R.id.bt_inscrire);
+        name = (EditText) findViewById(R.id.et_name);
+        mail = (EditText) findViewById(R.id.et_mail);
+        password = (EditText) findViewById(R.id.et_password);
         connexion.setOnClickListener(this);
         bt_inscrire.setOnClickListener(this);
     }
@@ -33,9 +38,14 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connexion:
-                Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(this, Activity_Welcome.class);
-                startActivity(i);
+                int idUserConnected = databaseManager.readAuthProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
+                if (idUserConnected != -1) {
+                    Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(this, Activity_Welcome.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getApplicationContext(), "incorrect info", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.bt_inscrire:
                 Intent i2 = new Intent(this, Activity_Inscriptions.class);
