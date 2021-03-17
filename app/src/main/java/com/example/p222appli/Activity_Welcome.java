@@ -39,8 +39,10 @@ public class Activity_Welcome extends AppCompatActivity {
         TextView profilName = findViewById(R.id.txt_bdd_profilname);
         TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
 
+        databaseManager = new DatabaseManager(this);
         profilName.setText((databaseManager.readName(idUserConnected)));
         profilMail.setText((databaseManager.readMail(idUserConnected)));
+        databaseManager.close();
 
         Date now = new Date();
 

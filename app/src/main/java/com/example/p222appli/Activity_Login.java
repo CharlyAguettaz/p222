@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView pointsProfil;
+    //private TextView pointsProfil;
     private DatabaseManager databaseManager;
     private EditText name, mail, password;
     private Button connexion;
@@ -38,7 +38,9 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connexion:
+                databaseManager = new DatabaseManager(this);
                 int idUserConnected = databaseManager.readAuthProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
+                databaseManager.close();
                 if (idUserConnected != -1) {
                     Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(this, Activity_Welcome.class);
