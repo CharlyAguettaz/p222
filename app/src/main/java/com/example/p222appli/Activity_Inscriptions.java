@@ -20,18 +20,9 @@ import android.widget.Toast;
 public class Activity_Inscriptions extends AppCompatActivity implements View.OnClickListener {
 
     //private TextView pointsProfil;
-    private SQLiteDatabase db;
     DatabaseManager databaseManager;
     private Button bt_valider;
     private EditText name, mail, password;
-
-    public void open() throws SQLiteException {
-        try {
-            db = databaseManager.getWritableDatabase();
-        } catch (SQLiteException ex) {
-            db = databaseManager.getReadableDatabase();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +36,6 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
         bt_valider.setOnClickListener(this);
 
         databaseManager = new DatabaseManager(this);
-        open();
 
     }
 
@@ -53,15 +43,14 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.bt_valider) {
-            Toast.makeText(getApplicationContext(), "Know connect yourself", Toast.LENGTH_LONG).show();
+
             Intent i = new Intent(this, Activity_Login.class);
             //i.putExtras();
             //databaseManager = new DatabaseManager(this);
             //open();
             //databaseManager.onCreate(db);
-            databaseManager.insertsProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString(),0);
-            db.close();
-            Log.v("input database", name.getText().toString() + ", " + mail.getText().toString() + ", " + password.getText().toString() + ", 0");
+            databaseManager.insertsProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
+            databaseManager.close();
 
             Toast.makeText(getApplicationContext(), "inscription", Toast.LENGTH_LONG).show();
             startActivity(i);

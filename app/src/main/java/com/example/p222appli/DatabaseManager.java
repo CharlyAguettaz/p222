@@ -11,8 +11,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 2;
 
-    public final String SQL_CREATE = "create table if not exists T_Profil (idProfil integer primary key autoincrement, name text not null, mail text not null, password text not null, points integer not null);";
-    public final String SQL_DELETE = "drop table if exists T_Profil;";
+    public final String SQL_DELETE = "drop table if exists T_Profil";
 
     public DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,6 +19,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String SQL_CREATE = "create table if not exists T_Profil (" + "idProfil integer primary key autoincrement," + " name text not null," + " mail text not null," + " password text not null" + ")";
         db.execSQL(SQL_CREATE);
         Log.i("DATABASE", "onCreate invoked");
     }
@@ -37,26 +37,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Log.i("DATABASE", "onDowngrade invoked");
     }
 
-    public void insertsProfil(String name, String mail, String password, int points) {
+    public void insertsProfil(String name, String mail, String password) {
         name = name.replace("'", "''");
-        String request = "insert into T_Profil (names, mail, password, points) values ('" + name + "', '" + mail + "','" +  password + "','" + points +"');";
+        String request = "insert into T_Profil (name, mail, password) values ('" + name + "','" + mail + "','" +  password + "')";
         this.getWritableDatabase().execSQL(request);
         Log.i("DATABASE", "insertsProfil invoked");
     }
 
-    public int readPoints(int inId) {
-        int points = 0;
-        String request = "select points from T_Profil where idProfil = " + inId + ";";
-        Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            points = cursor.getInt(0);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        Log.i("DATABASE", "readPoints invoked");
-        return points;
-    }
 
     public int readAuthProfil(String inName, String inMail, String inPassword) {
         int answer = -1;
