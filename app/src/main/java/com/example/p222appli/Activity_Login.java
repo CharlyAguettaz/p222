@@ -57,7 +57,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getApplicationContext(), "connexion", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(this, Activity_Welcome.class);
                     i.putExtra("idUserConnected", idUserConnected);
-                    //i.putExtra("", );
                     startActivity(i);
                 } else {
                     Toast.makeText(getApplicationContext(), "incorrect info", Toast.LENGTH_LONG).show();

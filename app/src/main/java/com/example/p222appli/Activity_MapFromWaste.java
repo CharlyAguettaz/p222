@@ -242,7 +242,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        else if ( type == 2 && actWasteSorting == paper) {
+                        if ( type == 2 && actWasteSorting == paper) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -258,7 +258,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                             });
 
                         }
-                        else if ( type == 3 && actWasteSorting == plastic) {
+                        if ( type == 3 && actWasteSorting == plastic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -273,7 +273,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        else if ( type == 4 && actWasteSorting == metal) {
+                        if ( type == 4 && actWasteSorting == metal) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -288,7 +288,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        else if ( type == 5 && actWasteSorting == organic) {
+                        if ( type == 5 && actWasteSorting == organic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -303,7 +303,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        else if ( type == 6 && actWasteSorting == others){
+                        if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override

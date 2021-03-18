@@ -199,7 +199,6 @@ public class Activity_Maps extends AppCompatActivity implements LocationListener
                 for (int i = 0; i < listLieu.size(); i++) {
 
                     String lieu = listLieu.get(i).getAdresse();
-                    int type = listLieu.get(i).getType();
                     Geocoder geocoder = new Geocoder(Activity_Maps.this);
 
                     try {

@@ -2,6 +2,7 @@ package com.example.p222appli;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,8 +32,10 @@ public class Activity_Welcome extends AppCompatActivity {
     DatabaseManager databaseManager;
     private RadioGroup rd_waste_choice;
     private RadioButton radioButton;
+    private RadioButton verre, papier, plastique, metal, organique, autre;
     protected int idUserConnected;
     private String stringAdresse;
+    private int valeurItem;
 
     public void open() throws SQLiteException {
         try {
@@ -42,21 +45,25 @@ public class Activity_Welcome extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__welcome);
-
         rd_waste_choice = findViewById(R.id.rd_waste_choice);
         TextView profilName = findViewById(R.id.txt_bdd_profilname);
         TextView profilMail = findViewById(R.id.txt_bdd_profilmail);
-
         idUserConnected = this.getIntent().getExtras().getInt("idUserConnected");
-
+        verre = findViewById(R.id.rdbt_glass);
+        papier = findViewById(R.id.rdbt_paper);
+        plastique = findViewById(R.id.rdbt_plastic);
+        metal = findViewById(R.id.rdbt_metal);
+        organique = findViewById(R.id.rdbt_organic);
+        autre = findViewById(R.id.rdbt_other);
         databaseManager = new DatabaseManager(this);
         open();
-        profilName.setText((databaseManager.readName(idUserConnected)));
-        profilMail.setText((databaseManager.readMail(idUserConnected)));
+        profilName.setText(databaseManager.readName(idUserConnected) + getIntent().getIntExtra("idUserConnected", 0));
+        profilMail.setText(databaseManager.readMail(idUserConnected));
         db.close();
 
         Date now = new Date();
@@ -64,16 +71,9 @@ public class Activity_Welcome extends AppCompatActivity {
         DateFormat dateformatter = DateFormat.getDateInstance(DateFormat.SHORT);
         String formattedDate = dateformatter.format(now);
 
-        // Récupération de la liste
         ListView listeV = (ListView) findViewById(R.id.idListView);
-
-        // Liste des valeurs affchées dans la listeView
         List<String> listeValeursDansLaListe = new ArrayList<>();
-
-        // Création d'un adapter à partir de la liste
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listeValeursDansLaListe);
-
-        // lie l'adapter à la listeView
         listeV.setAdapter(adapter);
 
         // Code pour la gestion des clics sur ls items de la liste
@@ -81,11 +81,16 @@ public class Activity_Welcome extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Récupère la valeur de l'item à la position sur laquelle on a cliqué
-                String valeurItem = (String) parent.getItemAtPosition(position);
+                String nomItem = (String) parent.getItemAtPosition(position);
+                valeurItem = (int) parent.getSelectedItemPosition() + 1;
+                System.out.println(valeurItem);
 
-                Toast.makeText(Activity_Welcome.this, valeurItem, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Welcome.this, getString(R.string.yourSelection) + nomItem, Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
 
 
         //---------------------------------------------------
@@ -94,37 +99,82 @@ public class Activity_Welcome extends AppCompatActivity {
 
         // Pour desactiver le bouton lorsqu'il n'y a pas de valeur à supprimer.. cf code bouton deleteButton
         deleteButton.setEnabled(false);
+        addButton.setEnabled(false);
+
+       verre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_glass);
+            }
+        });
+        papier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_paper);
+            }
+        });
+        plastique.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_plastic);
+            }
+        });
+        metal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_metal);
+            }
+        });
+        organique.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_organic);
+            }
+        });
+        autre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton.setEnabled(true);
+                radioButton = findViewById(R.id.rdbt_other);
+            }
+        });
+
 
         // On va ajouter une valeur dans la liste à chaque fois que l'on appuiera sur le bouton +
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(radioButton.getId() == R.id.rdbt_glass){
+                if(radioButton.getId() == verre.getId()){
                     stringAdresse = getString(R.string.wt_glass) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
-                else if(radioButton.getId() == R.id.rdbt_paper){
+                else if(radioButton.getId() == papier.getId()){
                     stringAdresse = getString(R.string.wt_paper) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
-                else if(radioButton.getId() == R.id.rdbt_plastic){
+                else if(radioButton.getId() == plastique.getId()){
                     stringAdresse = getString(R.string.wt_plastic) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
-                else if(radioButton.getId() == R.id.rdbt_metal){
+                else if(radioButton.getId() == metal.getId()){
                     stringAdresse = getString(R.string.wt_metal) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
-                else if(radioButton.getId() == R.id.rdbt_organic){
+                else if(radioButton.getId() == organique.getId()){
                     stringAdresse = getString(R.string.wt_organic) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
                 }
-                else if(radioButton.getId() == R.id.rdbt_other){
+                else if(radioButton.getId() == autre.getId()){
                     stringAdresse = getString(R.string.wt_other) + " " + formattedDate;
                     listeValeursDansLaListe.add(stringAdresse);
                     adapter.notifyDataSetChanged();
@@ -146,9 +196,11 @@ public class Activity_Welcome extends AppCompatActivity {
 
 
                 // Il vaudrait mieux désactiver le bouton s'il n'y a plus de valeur
+
                 if (listeValeursDansLaListe.size()>0) {
-                    listeValeursDansLaListe.remove(listeValeursDansLaListe.size() - 1);
+                    listeValeursDansLaListe.remove(valeurItem);
                     adapter.notifyDataSetChanged();
+
                     if (listeValeursDansLaListe.size() == 0){
                         deleteButton.setEnabled(false);
                     }
@@ -156,7 +208,6 @@ public class Activity_Welcome extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -173,13 +224,6 @@ public class Activity_Welcome extends AppCompatActivity {
         return true;
     }
 
-
-
-    public void checkButton(View v){
-        int radioId = rd_waste_choice.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
-        Toast.makeText(this, "Selection: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
-    }
 
 
 

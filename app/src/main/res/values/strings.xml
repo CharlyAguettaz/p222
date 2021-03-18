@@ -29,4 +29,5 @@
     <string name="connect">Connect</string>
     <string name="adressSelected">\"Address selected \"</string>
     <string name="toSort">What do you have to sort out today?</string>
+    <string name="yourSelection">your selection </string>
 </resources>

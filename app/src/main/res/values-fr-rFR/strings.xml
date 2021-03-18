@@ -30,4 +30,5 @@
     <string name="connect">Se connecter</string>
     <string name="adressSelected">\"Adresse sélectionnée \"</string>
     <string name="toSort">"Que devez-vous trier aujoud'hui ?"</string>
+    <string name="yourSelection">votre sélection </string>
 </resources>
