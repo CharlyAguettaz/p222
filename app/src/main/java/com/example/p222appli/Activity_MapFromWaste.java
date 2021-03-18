@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.location.LocationManager.GPS_PROVIDER;
@@ -123,7 +124,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
     }
 
     private List<Lieu> readCsvFile() {
-        listLieu = new ArrayList<>();
+        listLieu = new LinkedList<>();
         InputStream is = getResources().openRawResource(R.raw.trier);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("windows-1252"))
@@ -208,13 +209,14 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom((latLng2), 15));
                 googleMap.setMyLocationEnabled( true );
                 List<Address> listAdresse2 = null;
-                List<Lieu> listLieu = readCsvFile();
+                listLieu = readCsvFile();
 
 
                 for (int i = 0; i < readCsvFile().size(); i++) {
 
                     String lieu = listLieu.get(i).getAdresse();
                     Integer type = listLieu.get(i).getType();
+                    System.out.println(listLieu.get(i).getAdresse() + listLieu.get(i).getType());
                     Geocoder geocoder = new Geocoder(Activity_MapFromWaste.this);
 
 
@@ -225,6 +227,8 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                     }
 
                     LatLng latLng = new LatLng(listAdresse2.get(0).getLatitude(), listAdresse2.get(0).getLongitude());
+
+                    // sélectionne les lieux à marquer
 
                     if (distanceBetween(latLng.latitude, latLng.longitude, latLng2.latitude, latLng2.longitude) < 20) {
                         if ( type == 1 && actWasteSorting == glass) {
@@ -242,7 +246,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        if ( type == 2 && actWasteSorting == paper) {
+                        else if ( type == 2 && actWasteSorting == paper) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -258,7 +262,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                             });
 
                         }
-                        if ( type == 3 && actWasteSorting == plastic) {
+                        else if ( type == 3 && actWasteSorting == plastic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -273,7 +277,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        if ( type == 4 && actWasteSorting == metal) {
+                        else if ( type == 4 && actWasteSorting == metal) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -288,7 +292,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        if ( type == 5 && actWasteSorting == organic) {
+                        else if ( type == 5 && actWasteSorting == organic) {
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
@@ -303,7 +307,7 @@ public class Activity_MapFromWaste extends AppCompatActivity implements Location
                                 }
                             });
                         }
-                        if ( type == 6 && actWasteSorting == others){
+                        else if ( type == 6 && actWasteSorting == others){
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(lieu).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override

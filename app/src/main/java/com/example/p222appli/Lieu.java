@@ -4,7 +4,7 @@ public class Lieu {
     private static String adresse;
     private static int type;
 
-    public static int getType() {
+    public int getType() {
 
         return type;
     }
@@ -14,8 +14,9 @@ public class Lieu {
         return adresse;
     }
 
-    public static void setType(Integer type) {
-        Lieu.type = type;
+    public void setType(int type) {
+
+        this.type = type;
     }
 
     public void setAdresse(String adresse) {
@@ -23,8 +24,4 @@ public class Lieu {
         this.adresse = adresse;
     }
 
-    public static String toString(Lieu lieu) {
-        String s = adresse;
-        return s;
-    }
 }

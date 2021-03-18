@@ -83,7 +83,6 @@ public class Activity_Welcome extends AppCompatActivity {
                 // Récupère la valeur de l'item à la position sur laquelle on a cliqué
                 String nomItem = (String) parent.getItemAtPosition(position);
                 valeurItem = (int) parent.getSelectedItemPosition() + 1;
-                System.out.println(valeurItem);
 
                 Toast.makeText(Activity_Welcome.this, getString(R.string.yourSelection) + nomItem, Toast.LENGTH_SHORT).show();
             }
