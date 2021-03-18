@@ -49,8 +49,9 @@ public class Activity_Inscriptions extends AppCompatActivity implements View.OnC
             //databaseManager = new DatabaseManager(this);
             //open();
             //databaseManager.onCreate(db);
-            databaseManager.insertsProfil(name.getText().toString() , mail.getText().toString(), password.getText().toString());
+            databaseManager.insertsProfil(name.getText().toString(), mail.getText().toString(), password.getText().toString());
             databaseManager.close();
+            System.out.println(name.getText().toString() + mail.getText().toString() + password.getText().toString());
 
             Toast.makeText(getApplicationContext(), "inscription", Toast.LENGTH_LONG).show();
             startActivity(i);

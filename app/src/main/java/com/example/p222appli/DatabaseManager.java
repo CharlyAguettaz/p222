@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class DatabaseManager extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "database.db";
+    private static final String DATABASE_NAME = "database1";
     private static final int DATABASE_VERSION = 2;
 
     public final String SQL_DELETE = "drop table if exists T_Profil";
@@ -38,7 +38,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertsProfil(String name, String mail, String password) {
 
-        String request = "insert into T_Profil (name, mail, password) values ('" + name + "','" + mail + "','" +  password + "')";
+        String request = "insert into T_Profil (name, mail, password) values ('" + name + "', '" + mail + "', '" +  password + "')";
         this.getWritableDatabase().execSQL(request);
         Log.i("DATABASE", "insertsProfil invoked");
     }
@@ -46,7 +46,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public int readAuthProfil(String inName, String inMail, String inPassword) {
         int answer = -1;
-        String request = "select idProfil from T_Profil where name = " + inName + " and mail = " + inMail + " and password = " + inPassword + ";";
+        String request = "select idProfil from T_Profil where name = '" + inName + "' and mail = '" + inMail + "' and password = '" + inPassword + "';";
         Cursor cursor = this.getReadableDatabase().rawQuery(request, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
